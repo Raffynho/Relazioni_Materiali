@@ -62,35 +62,34 @@ All'interno della tabella possiamo trovare i dati ricavati in particolare ci con
 Facendo un grafico a barre possiamo visualizzare come sono distribuite le quantità degli elementi all'interno delle tre aree
 
 ```{r echo=FALSE}
-Dati_tot %>% 
+tab_mean <- Dati_tot %>% 
   group_by(Element) %>% 
   mutate(
-    Mean = mean(Mass_Norm),
+    Mean = mean(Mass_Norm) %>% round(digits=2),
     .before  = Campione
   )
 
-temp <- tibble(
-  E = Dati_tot$Element,
-  M = Dati_tot$Mass_Norm,
-  C = Dati_tot$Campione
-)
+tab_mean %>% 
+  group_by(Element) %>% 
+  select(Element, Mean) %>% 
+  unique() %>% 
+  kable(booktabs=T, caption="Campionamento generale") %>%
+  kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
+```
 
 
-temp %>% 
-  ggplot(aes(x=E, y=M, fill=as.character(C))) + 
+```{r echo=FALSE}
+tab_mean %>% 
+  ggplot(aes(x=Element, y=Mass_Norm, fill=as.character(Campione))) + 
   geom_col(position="dodge") +
   labs(x="Elemento", y="Massa normalizzata (%)", fill="Campione") + 
   scale_fill_viridis_d()
 ```
 
 ```{r echo=FALSE}
-temp %>% 
-  group_by(E, C) %>% 
-  mutate(
-    Mean = M %>% mean()
-  ) %>% 
-  ggplot(aes(x=E, y=Mean)) + 
-  geom_col(fill="blue4") +
+tab_mean %>% 
+  ggplot(aes(x=Element, y=Mean), fill="blue4") + 
+  geom_col() +
   labs(x="Elemento", y="Massa media")
 ```
 
