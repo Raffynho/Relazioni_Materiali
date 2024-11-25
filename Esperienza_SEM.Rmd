@@ -1,0 +1,103 @@
+---
+title: "Esperienza di Laboratorio: SEM"
+short_title: "Rapporto di calibrazione"
+#logo: "unitn_logo.pdf"
+#logo_height: "1.2cm"
+author: "Tommaso Raffaelli"
+date: "`r Sys.Date()`"
+company: "Dipartimento di Ingegneria Industriale, corso di Misure Industriali"
+output: memor::pdf_memo
+classoption: a4paper
+number_sections: true
+libertine: false
+toc: true
+lof: true
+lot: false
+header-includes: #\usepackage[italian]{babel}
+---
+
+```{r setup, echo=F, include=F}
+# Caricamento librerie
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+library(modelr)
+library(purrr)
+
+# Impostazioni output
+knitr::opts_chunk$set(
+	fig.align  = "center",      # allineamento figure
+	fig.dim    = c(5, 3) * 1.2, # rapporto larghezza/altezza e fattore di scala
+	out.height = "2.8in",       # altezza effettiva figure
+	message    = FALSE,         # sopprimi messaggi
+	warning    = FALSE,         # sopprimi warning
+	echo       = TRUE,          # mostra i codice dei chunk
+	include    = TRUE,          # mostra l'output dei chunk
+	tidy       = TRUE,          # formatta il codice dei chunk
+  tidy.opts  = list(width.cutoff=I(75)) # massima larghezza codice nei chunk
+)
+```
+\newpage
+
+# Introduzione
+
+Dato un campione di Acciaio DUPLEX l'obbiettivo è quello di usare il microscopio elettronico a scansione per individuare le due specie presenti
+
+# Materiali e tecniche sperimentali
+
+# Dati ottenuti
+
+## Conposizione generale
+
+Per riuscire ad identificare la composizione generale del campione sono state fatte tre misure su aree diverse in modo che facendo la media delle misurazioni abbiamo una buona idea sulla composizione di tutto il campione.
+
+
+```{r echo=FALSE}
+Dati_tot <- read_csv("Dati_tot.csv")
+kable(Dati_tot[1:7,], booktabs=T, caption="Campionamento generale") %>%
+  kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
+```
+
+All'interno della tabella possiamo trovare i dati ricavati in particolare ci concentriamo su le colonne: **Element**, **Mass_Norm** e **Campione**.
+Facendo un grafico a barre possiamo visualizzare come sono distribuite le quantità degli elementi all'interno delle tre aree
+
+```{r echo=FALSE}
+Dati_tot %>% 
+  group_by(Element) %>% 
+  mutate(
+    Mean = mean(Mass_Norm),
+    .before  = Campione
+  )
+
+temp <- tibble(
+  E = Dati_tot$Element,
+  M = Dati_tot$Mass_Norm,
+  C = Dati_tot$Campione
+)
+
+
+temp %>% 
+  ggplot(aes(x=E, y=M, fill=as.character(C))) + 
+  geom_col(position="dodge") +
+  labs(x="Elemento", y="Massa normalizzata (%)", fill="Campione") + 
+  scale_fill_viridis_d()
+```
+
+```{r echo=FALSE}
+temp %>% 
+  group_by(E, C) %>% 
+  mutate(
+    Mean = M %>% mean()
+  ) %>% 
+  ggplot(aes(x=E, y=Mean)) + 
+  geom_col(fill="blue4") +
+  labs(x="Elemento", y="Massa media")
+```
+
+
+
+
+## Struttura delle fasi
+
+# Conclusioni
+
