@@ -24,7 +24,6 @@ library(tidyverse)
 library(modelr)
 library(purrr)
 library(patchwork)
-#library(paletteer)
 
 # Impostazioni output
 knitr::opts_chunk$set(
@@ -38,6 +37,9 @@ knitr::opts_chunk$set(
 	tidy       = TRUE,          # formatta il codice dei chunk
   tidy.opts  = list(width.cutoff=I(75)) # massima larghezza codice nei chunk
 )
+```
+```{r, include=FALSE}
+options(tinytex.verbose = TRUE)
 ```
 \newpage
 
@@ -134,20 +136,6 @@ fase_scura <- fase_scura %>%
     .before  = Campione
   )
 
-fase_chiara %>% 
-  group_by(Element) %>% 
-  select(Element, Mean) %>% 
-  unique() %>% 
-  kable(booktabs=T, caption="Meida della fase chiara") %>%
-  kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
-
-fase_scura %>% 
-  group_by(Element) %>% 
-  select(Element, Mean) %>% 
-  unique() %>% 
-  kable(booktabs=T, caption="Media della fase scura") %>%
-  kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
-
 mean_fase <- fase_chiara %>% 
   group_by(Element) %>% 
   select(Element, Mean) %>% 
@@ -155,7 +143,14 @@ mean_fase <- fase_chiara %>%
   left_join(
   fase_scura %>% group_by(Element) %>% select(Element, Mean) %>% unique(),
   by = join_by(Element)
-  )
+  ) %>% 
+  mutate(
+    Mean_chiara = Mean.x,
+    Mean_scura = Mean.y
+  ) %>% 
+  select(Element, Mean_chiara, Mean_scura) %>% 
+  kable(booktabs=T, caption="Media fase chiara e scura") %>%
+  kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
 
 mean_fase
 ```
@@ -181,9 +176,6 @@ p2 <- fase_scura %>%
 p1 + p2
 ```
 ```{r}
-mean_fase %>% 
-  group_by(Element) %>% 
-  expand(as.vector(Element))
 
 ```
 
