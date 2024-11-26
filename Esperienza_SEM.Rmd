@@ -1,11 +1,11 @@
 ---
 title: "Esperienza di Laboratorio: SEM"
-short_title: "Rapporto di calibrazione"
+short_title: "Composizione di un campione"
 #logo: "unitn_logo.pdf"
 #logo_height: "1.2cm"
 author: "Tommaso Raffaelli"
 date: "`r Sys.Date()`"
-company: "Dipartimento di Ingegneria Industriale, corso di Misure Industriali"
+company: "Dipartimento di Ingegneria Industriale - Corso di Scienze dei Materiali"
 output: memor::pdf_memo
 classoption: a4paper
 number_sections: true
@@ -23,6 +23,7 @@ library(kableExtra)
 library(tidyverse)
 library(modelr)
 library(purrr)
+library(paletteer)
 
 # Impostazioni output
 knitr::opts_chunk$set(
@@ -83,12 +84,15 @@ tab_mean %>%
   ggplot(aes(x=Element, y=Mass_Norm, fill=as.character(Campione))) + 
   geom_col(position="dodge") +
   labs(x="Elemento", y="Massa normalizzata (%)", fill="Campione") + 
-  scale_fill_viridis_d()
+  scale_fill_paletteer_d("LaCroixColoR::Apricot")
 ```
 
 ```{r echo=FALSE}
 tab_mean %>% 
-  ggplot(aes(x=Element, y=Mean), fill="blue4") + 
+  group_by(Element) %>% 
+  select(Element, Mean) %>% 
+  unique() %>% 
+  ggplot(aes(x=Element, y=Mean)) + 
   geom_col() +
   labs(x="Elemento", y="Massa media")
 ```
