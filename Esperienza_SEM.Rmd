@@ -23,7 +23,8 @@ library(kableExtra)
 library(tidyverse)
 library(modelr)
 library(purrr)
-library(paletteer)
+library(patchwork)
+#library(paletteer)
 
 # Impostazioni output
 knitr::opts_chunk$set(
@@ -83,8 +84,8 @@ tab_mean %>%
 tab_mean %>% 
   ggplot(aes(x=Element, y=Mass_Norm, fill=as.character(Campione))) + 
   geom_col(position="dodge") +
-  labs(x="Elemento", y="Massa normalizzata (%)", fill="Campione") + 
-  scale_fill_paletteer_d("LaCroixColoR::Apricot")
+  labs(x="Elemento", y="Massa normalizzata (%)", fill="Campione") +
+  scale_fill_viridis_d()
 ```
 
 ```{r echo=FALSE}
@@ -94,6 +95,7 @@ tab_mean %>%
   unique() %>% 
   ggplot(aes(x=Element, y=Mean)) + 
   geom_col() +
+  scale_fill_viridis_d() +
   labs(x="Elemento", y="Massa media")
 ```
 
@@ -107,15 +109,101 @@ fase_chiara <- read.csv("Dati_fase_chiara.csv")
 fase_scura <- read.csv("Dati_fase_scura.csv")
 
 fase_chiara %>% 
+  head(7) %>% 
   kable(booktabs=T, caption="Campionamento fase chiara") %>%
   kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
 
 fase_scura %>% 
+  head(7) %>% 
   kable(booktabs=T, caption="Campionamento fase scura") %>%
   kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
 ```
 
+```{r echo=FALSE}
+fase_chiara <- fase_chiara %>% 
+  group_by(Element) %>% 
+  mutate(
+    Mean = mean(Mass_Norm) %>% round(digits=2),
+    .before  = Campione
+  )
+
+fase_scura <- fase_scura %>% 
+  group_by(Element) %>% 
+  mutate(
+    Mean = mean(Mass_Norm) %>% round(digits=2),
+    .before  = Campione
+  )
+
+fase_chiara %>% 
+  group_by(Element) %>% 
+  select(Element, Mean) %>% 
+  unique() %>% 
+  kable(booktabs=T, caption="Meida della fase chiara") %>%
+  kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
+
+fase_scura %>% 
+  group_by(Element) %>% 
+  select(Element, Mean) %>% 
+  unique() %>% 
+  kable(booktabs=T, caption="Media della fase scura") %>%
+  kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
+
+mean_fase <- fase_chiara %>% 
+  group_by(Element) %>% 
+  select(Element, Mean) %>% 
+  unique() %>% 
+  left_join(
+  fase_scura %>% group_by(Element) %>% select(Element, Mean) %>% unique(),
+  by = join_by(Element)
+  )
+
+mean_fase
+```
+
+
+```{r echo=FALSE}
+p1 <- fase_chiara %>% 
+  group_by(Element) %>% 
+  select(Element, Mean) %>% 
+  unique() %>% 
+  ggplot(aes(x=Element, y=Mean)) + 
+  geom_col() + 
+  labs(x="Elemnto", y="Media", title="Media fase chiara")
+
+p2 <- fase_scura %>% 
+  group_by(Element) %>% 
+  select(Element, Mean) %>% 
+  unique() %>% 
+  ggplot(aes(x=Element, y=Mean)) + 
+  geom_col() + 
+  labs(x="Elemnto", y="Media", title="Media fase scura")
+
+p1 + p2
+```
+```{r}
+mean_fase %>% 
+  group_by(Element) %>% 
+  expand(as.vector(Element))
+
+```
 
 
 # Conclusioni
+
+
+\newpage
+
+```{r echo=FALSE}
+Dati_tot %>% 
+  kable(booktabs=T, caption="Campionamento a tutto campo tabella completa") %>%
+  kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
+
+fase_chiara %>% 
+  kable(booktabs=T, caption="Campionamento fase chiara tabella completa") %>%
+  kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
+
+fase_scura %>% 
+  kable(booktabs=T, caption="Campionamento fase scura tabella completa") %>%
+  kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
+```
 
