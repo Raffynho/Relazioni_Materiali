@@ -98,5 +98,20 @@ tab_mean %>%
 
 ## Struttura delle fasi
 
+```{r echo=FALSE}
+fase_chiara <- read.csv("Dati_fase_chiara.csv")
+fase_scura <- read.csv("Dati_fase_scura.csv")
+
+fase_chiara %>% 
+  kable(booktabs=T, caption="Campionamento fase chiara") %>%
+  kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
+
+fase_scura %>% 
+  kable(booktabs=T, caption="Campionamento fase scura") %>%
+  kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
+```
+
+
+
 # Conclusioni
 
