@@ -39,6 +39,20 @@ knitr::opts_chunk$set(
   tidy.opts  = list(width.cutoff=I(75)) # massima larghezza codice nei chunk
 )
 ```
+
+```{r img_tuttocampo, echo=FALSE, fig.cap="Immagine a tutto campo", out.width = '90%'}
+img_tutto_campo <- knitr::include_graphics("immagini_sem/AM_full_frame_BED-C_1_0001.jpg")
+```
+
+```{r img_fase1, echo=FALSE, fig.cap="Immagine campione 1", out.width = '90%'}
+img_fase1 <- knitr::include_graphics("immagini_sem/AM_BED-C_1_0008.jpg")
+```
+
+```{r img_fase2, echo=FALSE, fig.cap="Immagine campione2", out.width = '90%'}
+img_fase2 <- knitr::include_graphics("immagini_sem/AM_BED-C_1_0008.jpg")
+```
+
+
 \newpage
 
 # Introduzione
@@ -47,11 +61,21 @@ Dato un campione di Acciaio DUPLEX l'obbiettivo è quello di usare il microscopi
 
 # Materiali e tecniche sperimentali
 
+
+
+Per poter ricavare la composizione del campione 
+
 # Dati ottenuti
+
+
 
 ## Conposizione generale
 
 Per riuscire ad identificare la composizione generale del campione sono state fatte tre misure su aree diverse in modo che facendo la media delle misurazioni abbiamo una buona idea sulla composizione di tutto il campione.
+
+```{r echo=FALSE}
+img_tutto_campo
+```
 
 
 ```{r echo=FALSE}
@@ -62,6 +86,8 @@ kable(Dati_tot[1:7,], booktabs=T, caption="Campionamento generale") %>%
 
 All'interno della tabella possiamo trovare i dati ricavati in particolare ci concentriamo su le colonne: **Element**, **Mass_Norm** e **Campione**.
 Facendo un grafico a barre possiamo visualizzare come sono distribuite le quantità degli elementi all'interno delle tre aree
+
+
 
 ```{r echo=FALSE}
 tab_mean <- Dati_tot %>% 
@@ -104,6 +130,8 @@ tab_mean %>%
 
 ## Struttura delle fasi
 
+Come per la composizione generale anche per capire la struttura delle fasi distinte sono state fette tre misurazioni su tre aree diverse del campione in modo da eliminare la casualità della composizione
+
 ```{r echo=FALSE}
 fase_chiara <- read.csv("Dati_fase_chiara.csv")
 fase_scura <- read.csv("Dati_fase_scura.csv")
@@ -134,20 +162,6 @@ fase_scura <- fase_scura %>%
     .before  = Campione
   )
 
-fase_chiara %>% 
-  group_by(Element) %>% 
-  select(Element, Mean) %>% 
-  unique() %>% 
-  kable(booktabs=T, caption="Meida della fase chiara") %>%
-  kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
-
-fase_scura %>% 
-  group_by(Element) %>% 
-  select(Element, Mean) %>% 
-  unique() %>% 
-  kable(booktabs=T, caption="Media della fase scura") %>%
-  kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
-
 mean_fase <- fase_chiara %>% 
   group_by(Element) %>% 
   select(Element, Mean) %>% 
@@ -155,7 +169,12 @@ mean_fase <- fase_chiara %>%
   left_join(
   fase_scura %>% group_by(Element) %>% select(Element, Mean) %>% unique(),
   by = join_by(Element)
-  )
+  ) %>% 
+  mutate(
+    mean_chiara = Mean.x,
+    mean_scura = Mean.y
+  ) %>% 
+  select(Element, mean_chiara, mean_scura)
 
 mean_fase
 ```
@@ -182,9 +201,8 @@ p1 + p2
 ```
 ```{r}
 mean_fase %>% 
-  group_by(Element) %>% 
-  expand(as.vector(Element))
-
+  ggplot(aes(x=Element)) + 
+  geom_col(aes(y=mean_chiara), position="dodge")
 ```
 
 
