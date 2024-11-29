@@ -24,6 +24,7 @@ library(tidyverse)
 library(modelr)
 library(purrr)
 library(patchwork)
+#library(paletteer)
 
 # Impostazioni output
 knitr::opts_chunk$set(
@@ -38,23 +39,55 @@ knitr::opts_chunk$set(
   tidy.opts  = list(width.cutoff=I(75)) # massima larghezza codice nei chunk
 )
 ```
-```{r, include=FALSE}
-options(tinytex.verbose = TRUE)
+
+```{r img_tuttocampo, echo=FALSE, fig.cap="Immagine a tutto campo", out.width = '90%'}
+img_tutto_campo <- knitr::include_graphics("immagini_sem/AM_full_frame_BED-C_1_0001.jpg")
 ```
+
+```{r img_fase1, echo=FALSE, fig.cap="Immagine campione 1", out.width = '90%'}
+img_fase1 <- knitr::include_graphics("immagini_sem/AM_BED-C_1_0008.jpg")
+```
+
+```{r img_fase2, echo=FALSE, fig.cap="Immagine campione2", out.width = '90%'}
+img_fase2 <- knitr::include_graphics("immagini_sem/AM_BED-C_1_0008.jpg")
+```
+
 \newpage
 
 # Introduzione
 
-Dato un campione di Acciaio DUPLEX l'obbiettivo è quello di usare il microscopio elettronico a scansione per individuare le due specie presenti
+Il presente report descrive l'analisi condotta su un campione ignoto mediante l'uso del microscopio elettronico a scansione (SEM, Scanning Electron Microscope). Questo strumento, grazie alla sua capacità di produrre immagini ad alta risoluzione e di effettuare analisi elementari tramite spettroscopia a dispersione di energia (EDS, Energy Dispersive Spectroscopy), si è rivelato fondamentale per determinare la morfologia superficiale e la composizione chimica del campione.
+
+Lo studio è stato finalizzato all'identificazione delle caratteristiche strutturali e chimiche del materiale, con l'obiettivo di comprendere la sua natura e le sue potenziali applicazioni. Durante l’esperimento, il campione è stato preparato adeguatamente per garantire un’osservazione ottimale, rispettando le condizioni necessarie per il funzionamento del SEM (ad esempio, la conduzione elettrica della superficie). Sono stati acquisiti dati relativi sia alla topografia che alla distribuzione degli elementi chimici presenti nel materiale analizzato.
+
+L'uso del SEM e dell'EDS rappresenta una metodologia consolidata per questo tipo di indagini, grazie alla combinazione di elevata capacità di ingrandimento e sensibilità chimica. I risultati ottenuti sono stati interpretati per caratterizzare il campione in termini di composizione, individuando eventuali impurità, fasi o particelle estranee, e fornire indicazioni sulle sue proprietà funzionali.
 
 # Materiali e tecniche sperimentali
 
+Il microscopio elettronico a scansione (SEM) utilizza un fascio di elettroni focalizzato per scansionare la superficie di un campione e ottenere immagini dettagliate della sua morfologia e composizione. Gli elettroni vengono emessi da una sorgente (come un filamento di tungsteno o una sorgente a emissione di campo), accelerati da un campo elettrico e focalizzati mediante una serie di lenti elettromagnetiche. Durante l'interazione con il campione, il fascio genera diversi segnali, tra cui elettroni secondari (SE), elettroni retro-diffusi (backscattered, BSE).
+
+Gli elettroni backscattered (BSE) sono particolarmente utili per ottenere informazioni sulla composizione chimica e sulle variazioni di densità del campione. Questi elettroni derivano dalla riflessione elastica del fascio incidente sul campione e la loro intensità dipende fortemente dal numero atomico (Z) degli elementi presenti.
+
+**Rivedere con le slide** In particolare: \* Gli atomi con numero atomico più elevato riflettono una maggiore quantità di elettroni backscattered, apparendo più brillanti nell'immagine. \* Gli atomi con numero atomico più basso riflettono meno elettroni, risultando quindi più scuri.
+
+Questa dipendenza consente di creare un'immagine a contrasto compositivo, utile per identificare la distribuzione di elementi pesanti e leggeri all'interno del campione. Inoltre, combinando i dati BSE con quelli ottenuti dalla spettroscopia EDS, è possibile correlare il contrasto compositivo alle concentrazioni elementari specifiche.
+
+Gli elettroni BSE forniscono dunque un'informazione complementare a quella degli elettroni secondari, che invece evidenziano la topografia superficiale, rendendo il SEM uno strumento versatile per lo studio di materiali eterogenei.
+
 # Dati ottenuti
+
+I dati ottenuti dal SEM sono
+
+-   Spettro
+-   Tabella dati
 
 ## Conposizione generale
 
 Per riuscire ad identificare la composizione generale del campione sono state fatte tre misure su aree diverse in modo che facendo la media delle misurazioni abbiamo una buona idea sulla composizione di tutto il campione.
 
+```{r echo=FALSE}
+img_tutto_campo
+```
 
 ```{r echo=FALSE}
 Dati_tot <- read_csv("Dati_tot.csv")
@@ -62,8 +95,7 @@ kable(Dati_tot[1:7,], booktabs=T, caption="Campionamento generale") %>%
   kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
 ```
 
-All'interno della tabella possiamo trovare i dati ricavati in particolare ci concentriamo su le colonne: **Element**, **Mass_Norm** e **Campione**.
-Facendo un grafico a barre possiamo visualizzare come sono distribuite le quantità degli elementi all'interno delle tre aree
+All'interno della tabella possiamo trovare i dati ricavati in particolare ci concentriamo su le colonne: **Element**, **Mass_Norm** e **Campione**. Facendo un grafico a barre possiamo visualizzare come sono distribuite le quantità degli elementi all'interno delle tre aree
 
 ```{r echo=FALSE}
 tab_mean <- Dati_tot %>% 
@@ -80,7 +112,6 @@ tab_mean %>%
   kable(booktabs=T, caption="Campionamento generale") %>%
   kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
 ```
-
 
 ```{r echo=FALSE}
 tab_mean %>% 
@@ -101,10 +132,9 @@ tab_mean %>%
   labs(x="Elemento", y="Massa media")
 ```
 
-
-
-
 ## Struttura delle fasi
+
+Come per la composizione generale anche per capire la struttura delle fasi distinte sono state fette tre misurazioni su tre aree diverse del campione in modo da eliminare la casualità della composizione
 
 ```{r echo=FALSE}
 fase_chiara <- read.csv("Dati_fase_chiara.csv")
@@ -145,16 +175,13 @@ mean_fase <- fase_chiara %>%
   by = join_by(Element)
   ) %>% 
   mutate(
-    Mean_chiara = Mean.x,
-    Mean_scura = Mean.y
+    mean_chiara = Mean.x,
+    mean_scura = Mean.y
   ) %>% 
-  select(Element, Mean_chiara, Mean_scura) %>% 
-  kable(booktabs=T, caption="Media fase chiara e scura") %>%
-  kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
+  select(Element, mean_chiara, mean_scura)
 
 mean_fase
 ```
-
 
 ```{r echo=FALSE}
 p1 <- fase_chiara %>% 
@@ -175,13 +202,14 @@ p2 <- fase_scura %>%
 
 p1 + p2
 ```
-```{r}
 
+```{r}
+mean_fase %>% 
+  ggplot(aes(x=Element)) + 
+  geom_col(aes(y=mean_chiara), position="dodge")
 ```
 
-
 # Conclusioni
-
 
 \newpage
 
@@ -198,4 +226,3 @@ fase_scura %>%
   kable(booktabs=T, caption="Campionamento fase scura tabella completa") %>%
   kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
 ```
-
