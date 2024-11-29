@@ -51,8 +51,9 @@ img_fase1 <- knitr::include_graphics("immagini_sem/AM_BED-C_1_0008.jpg")
 ```{r img_fase2, echo=FALSE, fig.cap="Immagine campione2", out.width = '90%'}
 img_fase2 <- knitr::include_graphics("immagini_sem/AM_BED-C_1_0008.jpg")
 ```
-
 \newpage
+
+
 
 # Introduzione
 
@@ -62,28 +63,33 @@ Lo studio è stato finalizzato all'identificazione delle caratteristiche struttu
 
 L'uso del SEM e dell'EDS rappresenta una metodologia consolidata per questo tipo di indagini, grazie alla combinazione di elevata capacità di ingrandimento e sensibilità chimica. I risultati ottenuti sono stati interpretati per caratterizzare il campione in termini di composizione, individuando eventuali impurità, fasi o particelle estranee, e fornire indicazioni sulle sue proprietà funzionali.
 
+
+
 # Materiali e tecniche sperimentali
 
 Il microscopio elettronico a scansione (SEM) utilizza un fascio di elettroni focalizzato per scansionare la superficie di un campione e ottenere immagini dettagliate della sua morfologia e composizione. Gli elettroni vengono emessi da una sorgente (come un filamento di tungsteno o una sorgente a emissione di campo), accelerati da un campo elettrico e focalizzati mediante una serie di lenti elettromagnetiche. Durante l'interazione con il campione, il fascio genera diversi segnali, tra cui elettroni secondari (SE), elettroni retro-diffusi (backscattered, BSE).
 
 Gli elettroni backscattered (BSE) sono particolarmente utili per ottenere informazioni sulla composizione chimica e sulle variazioni di densità del campione. Questi elettroni derivano dalla riflessione elastica del fascio incidente sul campione e la loro intensità dipende fortemente dal numero atomico (Z) degli elementi presenti.
 
-**Rivedere con le slide** In particolare: \* Gli atomi con numero atomico più elevato riflettono una maggiore quantità di elettroni backscattered, apparendo più brillanti nell'immagine. \* Gli atomi con numero atomico più basso riflettono meno elettroni, risultando quindi più scuri.
+**Rivedere con le slide** In particolare: 
+* Gli atomi con numero atomico più elevato riflettono una maggiore quantità di elettroni backscattered, apparendo più brillanti nell'immagine. 
+* Gli atomi con numero atomico più basso riflettono meno elettroni, risultando quindi più scuri.
 
 Questa dipendenza consente di creare un'immagine a contrasto compositivo, utile per identificare la distribuzione di elementi pesanti e leggeri all'interno del campione. Inoltre, combinando i dati BSE con quelli ottenuti dalla spettroscopia EDS, è possibile correlare il contrasto compositivo alle concentrazioni elementari specifiche.
 
 Gli elettroni BSE forniscono dunque un'informazione complementare a quella degli elettroni secondari, che invece evidenziano la topografia superficiale, rendendo il SEM uno strumento versatile per lo studio di materiali eterogenei.
 
+
+
 # Dati ottenuti
 
-I dati ottenuti dal SEM sono
-
--   Spettro
--   Tabella dati
+Usando un un softwer di matching otteniamo dai rivelatori del microscopio otteniamo sottoforma di spettrogramma le quantità di elementi chimici presenti nel campione 
 
 ## Conposizione generale
 
-Per riuscire ad identificare la composizione generale del campione sono state fatte tre misure su aree diverse in modo che facendo la media delle misurazioni abbiamo una buona idea sulla composizione di tutto il campione.
+Come prima misura ci convine prende la composizione generale del campione in modo da poterla confrontare con i dati che verranno ottenuti in seguito 
+
+Per evitare di misurare un' area che non rappresenta bene l'intero campione sono state prese tre misure su tre aree diverse del campione una di queste è l'immagine sotto rappresentata `Fig1`
 
 ```{r echo=FALSE}
 img_tutto_campo
@@ -120,6 +126,8 @@ tab_mean %>%
   labs(x="Elemento", y="Massa normalizzata (%)", fill="Campione") +
   scale_fill_viridis_d()
 ```
+E' dal grafico a colonne sopra che possiamo notare che la **Massa normalizzata** tra le tre aree campionata non sono esattemente uguali qundi per arrivare ad avere dati usabili possiamo fare la media fra i tre campionamenti.
+
 
 ```{r echo=FALSE}
 tab_mean %>% 
@@ -134,21 +142,13 @@ tab_mean %>%
 
 ## Struttura delle fasi
 
-Come per la composizione generale anche per capire la struttura delle fasi distinte sono state fette tre misurazioni su tre aree diverse del campione in modo da eliminare la casualità della composizione
+A grandi ingrandimenti si può vedere che il campione non presenta solo una fase omogenea ma invece si possono vedere due fasi distinte.
+
+Qundi per poter identificare queste fasi distinte possiamo analizzare la composizione, come è stato fatto per la composizione generale, così da poter notare delle differenze all'interno della composizione chimica in modo da poter indentificare le singole fasi.
 
 ```{r echo=FALSE}
 fase_chiara <- read.csv("Dati_fase_chiara.csv")
 fase_scura <- read.csv("Dati_fase_scura.csv")
-
-fase_chiara %>% 
-  head(7) %>% 
-  kable(booktabs=T, caption="Campionamento fase chiara") %>%
-  kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
-
-fase_scura %>% 
-  head(7) %>% 
-  kable(booktabs=T, caption="Campionamento fase scura") %>%
-  kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
 ```
 
 ```{r echo=FALSE}
@@ -175,12 +175,14 @@ mean_fase <- fase_chiara %>%
   by = join_by(Element)
   ) %>% 
   mutate(
-    mean_chiara = Mean.x,
-    mean_scura = Mean.y
+    mean_fase_chiara = Mean.x,
+    mean_fase_scura = Mean.y
   ) %>% 
-  select(Element, mean_chiara, mean_scura)
+  select(Element, mean_fase_chiara, mean_fase_scura)
 
-mean_fase
+mean_fase %>% 
+  kable(booktabs=T, caption="Composizione delle fasi") %>%
+  kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
 ```
 
 ```{r echo=FALSE}
@@ -206,7 +208,7 @@ p1 + p2
 ```{r}
 mean_fase %>% 
   ggplot(aes(x=Element)) + 
-  geom_col(aes(y=mean_chiara), position="dodge")
+  geom_col(aes(y=mean_fase_chiara), position="dodge") 
 ```
 
 # Conclusioni
