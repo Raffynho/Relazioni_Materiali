@@ -24,7 +24,7 @@ library(tidyverse)
 library(modelr)
 library(purrr)
 library(patchwork)
-#library(paletteer)
+
 
 # Impostazioni output
 knitr::opts_chunk$set(
@@ -71,7 +71,7 @@ Data %>%
 
 ## Indici di Miller
 
-
+# Conclusione
 
 
 

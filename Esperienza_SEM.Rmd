@@ -71,7 +71,9 @@ Il microscopio elettronico a scansione (SEM) utilizza un fascio di elettroni foc
 
 Gli elettroni backscattered (BSE) sono particolarmente utili per ottenere informazioni sulla composizione chimica e sulle variazioni di densità del campione. Questi elettroni derivano dalla riflessione elastica del fascio incidente sul campione e la loro intensità dipende fortemente dal numero atomico (Z) degli elementi presenti.
 
-**Rivedere con le slide** In particolare: 
+**Rivedere con le slide** 
+In particolare: 
+
 * Gli atomi con numero atomico più elevato riflettono una maggiore quantità di elettroni backscattered, apparendo più brillanti nell'immagine. 
 * Gli atomi con numero atomico più basso riflettono meno elettroni, risultando quindi più scuri.
 
