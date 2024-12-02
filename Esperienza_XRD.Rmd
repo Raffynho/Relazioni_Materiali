@@ -1,0 +1,87 @@
+---
+title: "Esperienza di Laboratorio: XRD"
+short_title: "Struttura di un campione"
+#logo: "unitn_logo.pdf"
+#logo_height: "1.2cm"
+author: "Tommaso Raffaelli"
+date: "`r Sys.Date()`"
+company: "Dipartimento di Ingegneria Industriale - Corso di Scienze dei Materiali"
+output: memor::pdf_memo
+classoption: a4paper
+number_sections: true
+libertine: false
+toc: true
+lof: true
+lot: false
+header-includes: #\usepackage[italian]{babel}
+---
+
+```{r setup, echo=F, include=F}
+# Caricamento librerie
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+library(modelr)
+library(purrr)
+library(patchwork)
+#library(paletteer)
+
+# Impostazioni output
+knitr::opts_chunk$set(
+	fig.align  = "center",      # allineamento figure
+	fig.dim    = c(5, 3) * 1.2, # rapporto larghezza/altezza e fattore di scala
+	out.height = "2.8in",       # altezza effettiva figure
+	message    = FALSE,         # sopprimi messaggi
+	warning    = FALSE,         # sopprimi warning
+	echo       = TRUE,          # mostra i codice dei chunk
+	include    = TRUE,          # mostra l'output dei chunk
+	tidy       = TRUE,          # formatta il codice dei chunk
+  tidy.opts  = list(width.cutoff=I(75)) # massima larghezza codice nei chunk
+)
+```
+
+\newpage
+
+# Introduzione
+
+
+# Materiali e tecniche sperimentali
+
+
+# Dati ottenuti
+
+```{r}
+Data <- read.csv("Dati_XRD.csv") 
+Data %>% 
+  head(10) %>% 
+  kable(booktabs=T, caption="Campionamento generale") %>%
+  kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
+```
+
+
+
+
+```{r}
+Data %>% 
+  ggplot(aes(x=X2.theta, y=Experimental)) + 
+  geom_point(alpha=0.2) + 
+  geom_line() + 
+  labs(x="2θ", y="Experimental")
+```
+
+## Indici di Miller
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
