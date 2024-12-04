@@ -85,7 +85,11 @@ Gli elettroni BSE forniscono dunque un'informazione complementare a quella degli
 
 # Dati ottenuti
 
-Usando un un softwer di matching otteniamo dai rivelatori del microscopio otteniamo sottoforma di spettrogramma le quantità di elementi chimici presenti nel campione 
+Usando un un softwer di search & match otteniamo dai rivelatori del microscopio otteniamo sottoforma di spettrogramma le quantità di elementi chimici presenti nel campione
+
+Dalla macchina otteniamo uno spettragramma, utilizzando un softwer di search & match si ottiene una tabella contenete gli atomi presenti e le loro frazioni **volumetriche**
+
+
 
 ## Conposizione generale
 

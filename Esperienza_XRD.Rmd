@@ -44,6 +44,14 @@ knitr::opts_chunk$set(
 
 # Introduzione
 
+La diffrazione a raggi X (XRD) è una tecnica analitica fondamentale per lo studio dei materiali cristallini, utilizzata per determinare la struttura atomica o molecolare di un campione.
+
+Proprio su questo si basa l'esperienza di laboratorio
+
+
+
+
+
 La diffrazione a raggi X (XRD) è una tecnica analitica fondamentale per lo studio dei materiali cristallini, utilizzata per determinare la struttura atomica o molecolare di un campione. L'obiettivo principale dell'esperimento è identificare il reticolo cristallino e le sue caratteristiche, come la simmetria e le dimensioni delle celle unitarie. Questa tecnica sfrutta l'interazione tra i raggi X e il reticolo cristallino: quando un fascio di raggi X colpisce il campione, viene diffratto secondo le condizioni della legge di Bragg.
 
 Durante il laboratorio, un campione policristallino sarà sottoposto a un fascio di raggi X in un diffrattometro. Il risultato sarà un diffrattogramma, ovvero un grafico che rappresenta l'intensità dei raggi diffratti in funzione dell'angolo di diffrazione $(2\theta)$. Questo diffrattogramma permette di identificare le distanze interplanari e, attraverso il confronto con banche dati, di determinare la struttura cristallina e la fase del materiale.
@@ -54,58 +62,14 @@ L'esperimento fornisce una comprensione approfondita delle proprietà cristallin
 
 Una macchina per la diffrazione a raggi X (diffrattometro XRD) è progettata per analizzare la struttura cristallina dei materiali. Il suo funzionamento si basa sull'emissione di raggi X, la loro interazione con il campione, e la rilevazione delle radiazioni diffratte.
 
+Componenti:
 * Sorgente di Raggi X: La macchina genera raggi X focalizzati tramite un tubo a raggi X, in cui elettroni ad alta energia colpiscono un bersaglio metallico (solitamente rame o molibdeno), producendo radiazioni elettromagnetiche di lunghezza d'onda caratteristica.
 * Sistema di Collimazione: I raggi X emessi sono collimati (orientati) in un fascio stretto per garantire che colpiscano il campione con un'incidenza precisa.
 * Campione: Il campione, che può essere un solido policristallino, una polvere o un film sottile, è posizionato su un supporto e orientato per massimizzare l'interazione con il fascio.
 * Goniometro: Il campione e il rilevatore sono montati su un goniometro, che ruota il campione e il rilevatore sincronizzandoli per rispettare la geometria richiesta dalla legge di Bragg.
-* Rilevatore: Il rilevatore misura l'intensità dei raggi X diffratti a diversi angoli (2θ). Questo produce un diffrattogramma, che è una rappresentazione grafica dell'intensità dei raggi in funzione dell'angolo.
-* Analisi Dati: I picchi osservati nel diffrattogramma corrispondono a specifiche distanze interplanari del cristallo. Attraverso algoritmi di analisi e il confronto con banche dati, è possibile determinare la fase e la struttura cristallina del materiale.
+* Rilevatore: Il rilevatore misura l'intensità dei raggi X diffratti a diversi angoli $(2\theta)$. Questo produce un diffrattogramma, che è una rappresentazione grafica dell'intensità dei raggi in funzione dell'angolo.
 
 L'intero processo è altamente automatizzato e consente una rapida e precisa caratterizzazione strutturale dei materiali.
-
-# Dati ottenuti
-
-Dalla macchina otteniamo un 
-
-```{r echo=FALSE}
-Data <- read.csv("Dati_XRD.csv") 
-Data %>% 
-  head(10) %>% 
-  kable(booktabs=T, caption="Campionamento generale") %>%
-  kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
-```
-
-
-
-
-```{r echo=FALSE}
-Data %>% 
-  ggplot(aes(x=X2.theta, y=Experimental)) + 
-  geom_point(alpha=0.2) + 
-  geom_line() + 
-  labs(x="2θ", y="Experimental")
-```
-## Cell indexing
-
-Guardando il grafico soprastante si possono notare `9` picchi che rappresentano gli angoloi per cui la interferenza di raggi X è costruttiva, sapendo questo tramite la legge di Bragg possiamo calcolare la distanza interpalanare $(d)$ semplicemente invertendo la relazione $\lambda = 2d\sin\theta$
-
-Per prima cosa estraiamo i picchi
-
-```{r echo=FALSE}
-tibble(
-  theta = c(43.7608, 44.8178, 50.9399, 65.1386, 74.7905, 82.5479, 90.8637, 96.1882, 99.0798),
-  Exp = c(8360.27, 6514.35, 2820.92, 1440.85, 1511.79, 1911.9, 1397.68, 730.13, 860.23)
-) %>% 
-  ggplot(aes(x=theta, y=Exp)) + 
-  geom_point() + 
-  labs(x="theta", y="Experimental")
-```
-
-
-
-
-
-
 
 
 ## Legge di Bragg 
@@ -120,7 +84,58 @@ Dove:
 
 La legge permette di collegare l'angolo di diffrazione $(\theta)$ e le caratteristiche della radiazione $(\lambda)$ con le distanze interplanari $(d)$ della struttura cristallina. Questo principio è alla base dell'analisi dei diffrattogrammi prodotti nelle tecniche XRD, consentendo di determinare la struttura atomica del materiale.
 
-## Indici di Miller
+
+# Dati ottenuti
+
+Dalla macchina otteniamo una tabella che comprende:
+* Una riga che riporta i valori degli angoli di incidenza dei raggi X $(2\theta)$
+* Una riga che indica l'intensità dei raggi X in corrispondenza dei vari angoli 
+
+
+
+```{r echo=FALSE}
+Data <- read.csv("Dati_XRD.csv") 
+Data %>% 
+  head(10) %>% 
+  kable(booktabs=T, caption="Campionamento generale") %>%
+  kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
+```
+
+Da questa tabella plottando punto per punto otteniamo il difrattogramma del campione su cui stiamo sperimentando
+
+```{r echo=FALSE}
+Data %>% 
+  ggplot(aes(x=X2.theta, y=Experimental)) + 
+  geom_point(alpha=0.2) + 
+  geom_line() + 
+  labs(x="2θ", y="Experimental")
+```
+
+Guardando il grafico si possono notare alcuni picchi ben definiti questi rappresentano gli angoli di incidenza per cui i raggi X hanno fatto interferenza costruttiva 
+
+## Cell indexing
+
+Indexing is the process of determining the unit cell dimensions from the peak positions. To index a powder diffraction pattern it is necessary to assign Miller indices, hkl, to each peak.
+
+Indexing è il processo di determinare la dimensione della cella unitaia dalla posizione dei picchi del difrattogramma 
+
+```{r echo=FALSE}
+tibble(
+  theta = c(43.7608, 44.8178, 50.9399, 65.1386, 74.7905, 82.5479, 90.8637, 96.1882, 99.0798),
+  Exp = c(8360.27, 6514.35, 2820.92, 1440.85, 1511.79, 1911.9, 1397.68, 730.13, 860.23)
+) %>% 
+  ggplot(aes(x=theta, y=Exp)) + 
+  geom_point() + 
+  labs(x="theta", y="Experimental")
+```
+
+Nel caso del campione osservato in laboratorio otteniamo `9` picchi, sapendo che gli indici di miller sono numeri interi piccoli tramite la seguente relazione
+$$\frac{1}{d^2} = \frac{h^2 + k^2 + l^2}{a^2}$$
+possiamo ricavare per tentativi gli indici di Miller $h$, $k$ e $l$
+
+
+
+
 
 # Conclusione
 
