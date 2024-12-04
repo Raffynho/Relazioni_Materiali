@@ -72,10 +72,14 @@ Componenti:
 L'intero processo è altamente automatizzato e consente una rapida e precisa caratterizzazione strutturale dei materiali.
 
 
+Funzionamento:
+La machina genera raggi X tramite un tubo a raggi X che vengono collimati, per aumentare l'accuratezza dell'angolo di incidenza, questi colpiscono il rilevatore che misura la
+
+
 ## Legge di Bragg 
 
 La legge di Bragg è matematicamente espressa come:
-$$ \lambda = 2d\sin\theta$$
+$$\lambda = 2d\sin\theta$$
 Dove:
 
 * $\theta$: angolo del fascio incidente 
@@ -87,11 +91,13 @@ La legge permette di collegare l'angolo di diffrazione $(\theta)$ e le caratteri
 
 # Dati ottenuti
 
-Dalla macchina otteniamo una tabella che comprende:
-* Una riga che riporta i valori degli angoli di incidenza dei raggi X $(2\theta)$
-* Una riga che indica l'intensità dei raggi X in corrispondenza dei vari angoli 
+Dalla macchina otteinamo essenzialmente una tabella che mette in relazione:
+1. l'angolo di incidenza $2\theta$
+2. Il valore ricavato dall'rivelatore $Experimental$
 
-
+\begin{tiny}
+Nel caso del campione utilizzato in questa esperienza di laboratorio la tabella ha dimensione $4012 \times 2$ quindi per questioni di spazio farò vedere i primi elementi di essa.
+\end{tiny}
 
 ```{r echo=FALSE}
 Data <- read.csv("Dati_XRD.csv") 
@@ -101,17 +107,17 @@ Data %>%
   kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
 ```
 
-Da questa tabella plottando punto per punto otteniamo il difrattogramma del campione su cui stiamo sperimentando
+Dalla tabella facendo un plot punto per punto possiamo ottenere quello che è il difrattogramma del campione che stiamo analizzando
 
 ```{r echo=FALSE}
 Data %>% 
   ggplot(aes(x=X2.theta, y=Experimental)) + 
   geom_point(alpha=0.2) + 
   geom_line() + 
-  labs(x="2θ", y="Experimental")
+  labs(x="2theta", y="Experimental")
 ```
 
-Guardando il grafico si possono notare alcuni picchi ben definiti questi rappresentano gli angoli di incidenza per cui i raggi X hanno fatto interferenza costruttiva 
+Guardando il digrattogramma si possono notare alcuni picchi ben definiti, questi rappresentano gli angoli di incidenza per cui i raggi X hanno fatto interferenza costruttiva alla posizione del rivelatore.
 
 ## Cell indexing
 
