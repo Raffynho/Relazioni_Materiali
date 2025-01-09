@@ -44,17 +44,9 @@ knitr::opts_chunk$set(
 
 # Introduzione
 
-La diffrazione a raggi X (XRD) è una tecnica analitica fondamentale per lo studio dei materiali cristallini, utilizzata per determinare la struttura atomica o molecolare di un campione.
-
-Proprio su questo si basa l'esperienza di laboratorio
-
-
-
-
-
 La diffrazione a raggi X (XRD) è una tecnica analitica fondamentale per lo studio dei materiali cristallini, utilizzata per determinare la struttura atomica o molecolare di un campione. L'obiettivo principale dell'esperimento è identificare il reticolo cristallino e le sue caratteristiche, come la simmetria e le dimensioni delle celle unitarie. Questa tecnica sfrutta l'interazione tra i raggi X e il reticolo cristallino: quando un fascio di raggi X colpisce il campione, viene diffratto secondo le condizioni della legge di Bragg.
 
-Durante il laboratorio, un campione policristallino sarà sottoposto a un fascio di raggi X in un diffrattometro. Il risultato sarà un diffrattogramma, ovvero un grafico che rappresenta l'intensità dei raggi diffratti in funzione dell'angolo di diffrazione $(2\theta)$. Questo diffrattogramma permette di identificare le distanze interplanari e, attraverso il confronto con banche dati, di determinare la struttura cristallina e la fase del materiale.
+Durante il laboratorio, un campione policristallino è stato sottoposto a un fascio di raggi X in un diffrattometro. Il risultato sarà un diffrattogramma, ovvero un grafico che rappresenta l'intensità dei raggi diffratti in funzione dell'angolo di diffrazione $(2\theta)$. Questo diffrattogramma permette di identificare le distanze interplanari e, attraverso il confronto con banche dati, di determinare la struttura cristallina e la fase del materiale.
 
 L'esperimento fornisce una comprensione approfondita delle proprietà cristalline del materiale, che sono fondamentali per applicazioni in diversi settori, come la scienza dei materiali, la chimica e l'ingegneria.
 
@@ -63,17 +55,18 @@ L'esperimento fornisce una comprensione approfondita delle proprietà cristallin
 Una macchina per la diffrazione a raggi X (diffrattometro XRD) è progettata per analizzare la struttura cristallina dei materiali. Il suo funzionamento si basa sull'emissione di raggi X, la loro interazione con il campione, e la rilevazione delle radiazioni diffratte.
 
 Componenti:
-* Sorgente di Raggi X: La macchina genera raggi X focalizzati tramite un tubo a raggi X, in cui elettroni ad alta energia colpiscono un bersaglio metallico (solitamente rame o molibdeno), producendo radiazioni elettromagnetiche di lunghezza d'onda caratteristica.
-* Sistema di Collimazione: I raggi X emessi sono collimati (orientati) in un fascio stretto per garantire che colpiscano il campione con un'incidenza precisa.
-* Campione: Il campione, che può essere un solido policristallino, una polvere o un film sottile, è posizionato su un supporto e orientato per massimizzare l'interazione con il fascio.
-* Goniometro: Il campione e il rilevatore sono montati su un goniometro, che ruota il campione e il rilevatore sincronizzandoli per rispettare la geometria richiesta dalla legge di Bragg.
-* Rilevatore: Il rilevatore misura l'intensità dei raggi X diffratti a diversi angoli $(2\theta)$. Questo produce un diffrattogramma, che è una rappresentazione grafica dell'intensità dei raggi in funzione dell'angolo.
+
+* Sorgente di Raggi X; La macchina genera raggi X focalizzati tramite un tubo a raggi X, in cui elettroni ad alta energia colpiscono un bersaglio metallico (solitamente rame o molibdeno), producendo radiazioni elettromagnetiche di lunghezza d'onda caratteristica.
+* Sistema di Collimazione; I raggi X emessi sono collimati (orientati) in un fascio stretto per garantire che colpiscano il campione con un'incidenza precisa.
+* Campione; Il campione, che può essere un solido policristallino, una polvere o un film sottile, è posizionato su un supporto e orientato per massimizzare l'interazione con il fascio.
+* Goniometro; Il campione e il rilevatore sono montati su un goniometro, che ruota il campione e il rilevatore sincronizzandoli per rispettare la geometria richiesta dalla legge di Bragg.
+* Rilevatore; Il rilevatore misura l'intensità dei raggi X diffratti a diversi angoli $(2\theta)$. Questo produce un diffrattogramma, che è una rappresentazione grafica dell'intensità dei raggi in funzione dell'angolo.
 
 L'intero processo è altamente automatizzato e consente una rapida e precisa caratterizzazione strutturale dei materiali.
 
 
 Funzionamento:
-La machina genera raggi X tramite un tubo a raggi X che vengono collimati, per aumentare l'accuratezza dell'angolo di incidenza, questi colpiscono il rilevatore che misura la
+La macchina genera raggi X tramite un tubo a raggi X che vengono collimati, per aumentare l'accuratezza dell'angolo di incidenza, questi colpiscono il rilevatore che misura la intensità dei raggi arrivati ad esso.
 
 
 ## Legge di Bragg 
@@ -92,18 +85,17 @@ La legge permette di collegare l'angolo di diffrazione $(\theta)$ e le caratteri
 # Dati ottenuti
 
 Dalla macchina otteinamo essenzialmente una tabella che mette in relazione:
-1. l'angolo di incidenza $2\theta$
-2. Il valore ricavato dall'rivelatore $Experimental$
 
-\begin{tiny}
+1. l'angolo di incidenza $2\theta$
+2. il valore ricavato dall'rivelatore $Experimental$
+
 Nel caso del campione utilizzato in questa esperienza di laboratorio la tabella ha dimensione $4012 \times 2$ quindi per questioni di spazio farò vedere i primi elementi di essa.
-\end{tiny}
 
 ```{r echo=FALSE}
 Data <- read.csv("Dati_XRD.csv") 
 Data %>% 
   head(10) %>% 
-  kable(booktabs=T, caption="Campionamento generale") %>%
+  kable(booktabs=T, caption="Testa tabella dei dati ottenuti") %>%
   kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
 ```
 
@@ -111,7 +103,7 @@ Dalla tabella facendo un plot punto per punto possiamo ottenere quello che è il
 
 ```{r echo=FALSE}
 Data %>% 
-  ggplot(aes(x=X2.theta, y=Experimental)) + 
+  ggplot(aes(x=X2theta, y=Experimental)) + 
   geom_point(alpha=0.2) + 
   geom_line() + 
   labs(x="2theta", y="Experimental")
@@ -121,36 +113,63 @@ Guardando il digrattogramma si possono notare alcuni picchi ben definiti, questi
 
 ## Cell indexing
 
-Indexing is the process of determining the unit cell dimensions from the peak positions. To index a powder diffraction pattern it is necessary to assign Miller indices, hkl, to each peak.
-
-Indexing è il processo di determinare la dimensione della cella unitaia dalla posizione dei picchi del difrattogramma 
+Indexing è il processo usato per determinare la dimensione della cella unitaria dalla posizione dei picchi del difrattogramma 
 
 ```{r echo=FALSE}
-tibble(
+picchi <- tibble(
   theta = c(43.7608, 44.8178, 50.9399, 65.1386, 74.7905, 82.5479, 90.8637, 96.1882, 99.0798),
   Exp = c(8360.27, 6514.35, 2820.92, 1440.85, 1511.79, 1911.9, 1397.68, 730.13, 860.23)
-) %>% 
+)
+picchi %>% 
   ggplot(aes(x=theta, y=Exp)) + 
   geom_point() + 
   labs(x="theta", y="Experimental")
 ```
 
-Nel caso del campione osservato in laboratorio otteniamo `9` picchi, sapendo che gli indici di miller sono numeri interi piccoli tramite la seguente relazione
+Nel caso del campione osservato in laboratorio otteniamo `9` picchi, sapendo che gli indici di miller sono numeri interi piccoli, tramite la seguente relazione:
 $$\frac{1}{d^2} = \frac{h^2 + k^2 + l^2}{a^2}$$
 possiamo ricavare per tentativi gli indici di Miller $h$, $k$ e $l$
 
+```{r echo=FALSE}
+cuka <- 1.5406
+fea <- 2.87
+
+fun <- function(x){
+  return(cuka / 2 / sin(x))
+}
+
+picchi %>% 
+  mutate(
+    d_spacing = fun(theta),
+    a_d = fea^2 / d_spacing^2 
+  ) %>% 
+  kable(booktabs=T, caption="Cell indexing") %>%
+  kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
+```
 
 
+```{r echo=FALSE}
+hkl <- tibble(
+  picco = 1:9,
+  h = c(1, 3, 2, 2, 2, 2, 0, 2, 3),
+  k = c(0, 1, 1, 2, 0, 0, 1, 2, 3),
+  l = c(0, 0, 0, 0, 0, 2, 0, 2, 0)
+)
+
+hkl %>% 
+  kable(booktabs=T, caption="Cell indexing") %>%
+  kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
+
+```
 
 
 # Conclusione
 
+L'esperimento di laboratorio condotto con la tecnica di diffrazione a raggi X (XRD) ha fornito risultati significativi nell'analisi della struttura cristallina del campione in esame. Attraverso la raccolta e l'interpretazione del diffrattogramma, è stato possibile determinare le distanze interplanari caratteristiche del materiale e identificare le fasi cristalline presenti, consentendo di confermare le ipotesi iniziali oppure di rivelare dettagli inaspettati sulla composizione e la struttura del campione.
 
+Questa attività ha evidenziato l'importanza dell'XRD come strumento analitico versatile e affidabile, indispensabile per lo studio delle proprietà cristallografiche dei materiali. In particolare, ha mostrato come la combinazione di una metodologia sperimentale rigorosa e un'analisi dati accurata permetta di ottenere informazioni fondamentali per la ricerca e lo sviluppo in ambiti come la scienza dei materiali.
 
-
-
-
-
+Inoltre, l'esperienza in laboratorio ha offerto un'opportunità concreta di applicare conoscenze teoriche a un caso pratico, approfondendo la comprensione delle tecniche di caratterizzazione strutturale. Questa applicazione pratica ha sottolineato l'importanza di competenze sia teoriche che sperimentali per affrontare con successo le sfide della ricerca scientifica e tecnologica moderna.
 
 
 

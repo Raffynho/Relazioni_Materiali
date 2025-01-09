@@ -51,53 +51,51 @@ img_fase1 <- knitr::include_graphics("immagini_sem/AM_BED-C_1_0008.jpg")
 ```{r img_fase2, echo=FALSE, fig.cap="Immagine campione2", out.width = '90%'}
 img_fase2 <- knitr::include_graphics("immagini_sem/AM_BED-C_1_0008.jpg")
 ```
+
+\vfill
+\begin{tiny}
+* le tabbelle troppo grandi per essere mostrate all'interno del documento verranno stampate alla fine di esso in modo da evitare di speracare spazio
+\end{tiny}
+
 \newpage
-
-
 
 # Introduzione
 
-Il presente report descrive l'analisi condotta su un campione ignoto mediante l'uso del microscopio elettronico a scansione (SEM, Scanning Electron Microscope). Questo strumento, grazie alla sua capacità di produrre immagini ad alta risoluzione e di effettuare analisi elementari tramite spettroscopia a dispersione di energia (EDS, Energy Dispersive Spectroscopy), si è rivelato fondamentale per determinare la morfologia superficiale e la composizione chimica del campione.
+Il presente report descrive l'analisi condotta su un campione ignoto mediante l'uso del microscopio elettronico a scansione (SEM, Scanning Electron Microscope). Questo strumento, grazie alla sua capacità di produrre immagini ad alta risoluzione e di effettuare analisi elementari tramite spettroscopia a dispersione di energia (EDS, Energy Dispersive Spectroscopy), si è s fondamentale per determinare la morfologia superficiale e la composizione chimica del campione.
 
 Lo studio è stato finalizzato all'identificazione delle caratteristiche strutturali e chimiche del materiale, con l'obiettivo di comprendere la sua natura e le sue potenziali applicazioni. Durante l’esperimento, il campione è stato preparato adeguatamente per garantire un’osservazione ottimale, rispettando le condizioni necessarie per il funzionamento del SEM (ad esempio, la conduzione elettrica della superficie). Sono stati acquisiti dati relativi sia alla topografia che alla distribuzione degli elementi chimici presenti nel materiale analizzato.
 
-L'uso del SEM e dell'EDS rappresenta una metodologia consolidata per questo tipo di indagini, grazie alla combinazione di elevata capacità di ingrandimento e sensibilità chimica. I risultati ottenuti sono stati interpretati per caratterizzare il campione in termini di composizione, individuando eventuali impurità, fasi o particelle estranee, e fornire indicazioni sulle sue proprietà funzionali.
-
-
+L'uso del SEM rappresenta una metodologia consolidata per questo tipo di indagini, grazie alla combinazione di elevata capacità di ingrandimento e sensibilità chimica. I risultati ottenuti sono stati interpretati per caratterizzare il campione in termini di composizione, individuando eventuali impurità, fasi o particelle estranee, e fornire indicazioni sulle sue proprietà funzionali.
 
 # Materiali e tecniche sperimentali
 
-Il microscopio elettronico a scansione (SEM) utilizza un fascio di elettroni focalizzato per scansionare la superficie di un campione e ottenere immagini dettagliate della sua morfologia e composizione. Gli elettroni vengono emessi da una sorgente (come un filamento di tungsteno o una sorgente a emissione di campo), accelerati da un campo elettrico e focalizzati mediante una serie di lenti elettromagnetiche. Durante l'interazione con il campione, il fascio genera diversi segnali, tra cui elettroni secondari (SE), elettroni retro-diffusi (backscattered, BSE).
+Il microscopio elettronico a scansione (SEM) utilizza un fascio di elettroni focalizzato per scansionare la superficie di un campione e ottenere immagini dettagliate della sua morfologia e composizione. Gli elettroni vengono emessi da una sorgente (come un filamento di tungsteno o una sorgente a emissione di campo), accelerati da un campo elettrico e focalizzati mediante una serie di lenti elettromagnetiche. Durante l'interazione con il campione, il fascio genera diversi segnali, tra cui elettroni secondari (SE) ed elettroni retro-diffusi (backscattered, BSE).
 
 Gli elettroni backscattered (BSE) sono particolarmente utili per ottenere informazioni sulla composizione chimica e sulle variazioni di densità del campione. Questi elettroni derivano dalla riflessione elastica del fascio incidente sul campione e la loro intensità dipende fortemente dal numero atomico (Z) degli elementi presenti.
 
-**Rivedere con le slide** 
-In particolare: 
+In particolare:
 
-* Gli atomi con numero atomico più elevato riflettono una maggiore quantità di elettroni backscattered, apparendo più brillanti nell'immagine. 
-* Gli atomi con numero atomico più basso riflettono meno elettroni, risultando quindi più scuri.
+-   Gli atomi con numero atomico più elevato riflettono una maggiore quantità di elettroni backscattered, apparendo più brillanti nell'immagine.
+-   Gli atomi con numero atomico più basso riflettono meno elettroni, risultando quindi più scuri.
 
 Questa dipendenza consente di creare un'immagine a contrasto compositivo, utile per identificare la distribuzione di elementi pesanti e leggeri all'interno del campione. Inoltre, combinando i dati BSE con quelli ottenuti dalla spettroscopia EDS, è possibile correlare il contrasto compositivo alle concentrazioni elementari specifiche.
 
 Gli elettroni BSE forniscono dunque un'informazione complementare a quella degli elettroni secondari, che invece evidenziano la topografia superficiale, rendendo il SEM uno strumento versatile per lo studio di materiali eterogenei.
 
-
-
 # Dati ottenuti
 
-Usando un un softwer di search & match otteniamo dai rivelatori del microscopio otteniamo sottoforma di spettrogramma le quantità di elementi chimici presenti nel campione
+Usando un software di search & match otteniamo sotto forma di spettrogramma le quantità di elementi presenti nel campione.
+Questo software confronta i picchi di energia con un database di meteriali noti per identificare questi picchi presenti nello spettrogramma del campione analizzato.
 
-Dalla macchina otteniamo uno spettragramma, utilizzando un softwer di search & match si ottiene una tabella contenete gli atomi presenti e le loro frazioni **volumetriche**
+## Composizione generale
 
+Come prima misura ci convine considerare la composizione generale del campione in modo da poterla confrontare con i dati che verranno ottenuti in seguito
 
+Per evitare di misurare un' area che non rappresenti bene l'intero campione sono state prese tre misure su tre aree diverse del campione una di queste è l'immagine sotto rappresentata `Fig1`
 
-## Conposizione generale
+Per evitare di usare come campione un' area che non rappresenta accuratamente la composizione dell'intero campione per tutte le misure saranno fatte tre volte su tre aree diverse (una di queste aree è quella mostrata nella figura sotto).
 
-Come prima misura ci convine prende la composizione generale del campione in modo da poterla confrontare con i dati che verranno ottenuti in seguito 
-
-Per evitare di misurare un' area che non rappresenta bene l'intero campione sono state prese tre misure su tre aree diverse del campione una di queste è l'immagine sotto rappresentata `Fig1`
-
-```{r echo=FALSE}
+```{r fig1, echo=FALSE}
 img_tutto_campo
 ```
 
@@ -107,7 +105,7 @@ kable(Dati_tot[1:7,], booktabs=T, caption="Campionamento generale") %>%
   kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
 ```
 
-All'interno della tabella possiamo trovare i dati ricavati in particolare ci concentriamo su le colonne: **Element**, **Mass_Norm** e **Campione**. Facendo un grafico a barre possiamo visualizzare come sono distribuite le quantità degli elementi all'interno delle tre aree
+All'interno della tabella possiamo trovare i dati ricavati in particolare ci concentriamo su le colonne: **Element**, **Mass_Norm** e **Campione**. Inserendo i dati in un grafico a barre possiamo visualizzare come sono distribuite le quantità degli elementi all'interno delle tre aree
 
 ```{r echo=FALSE}
 tab_mean <- Dati_tot %>% 
@@ -132,8 +130,8 @@ tab_mean %>%
   labs(x="Elemento", y="Massa normalizzata (%)", fill="Campione") +
   scale_fill_viridis_d()
 ```
-E' dal grafico a colonne sopra che possiamo notare che la **Massa normalizzata** tra le tre aree campionata non sono esattemente uguali qundi per arrivare ad avere dati usabili possiamo fare la media fra i tre campionamenti.
 
+Si può notare possiamo notare che la **Massa normalizzata** tra le tre aree campionate non sono esattemente uguali qundi, per arrivare ad avere dati fruibili, possiamo fare la media fra i tre campionamenti.
 
 ```{r echo=FALSE}
 tab_mean %>% 
@@ -148,7 +146,13 @@ tab_mean %>%
 
 ## Struttura delle fasi
 
-A grandi ingrandimenti si può vedere che il campione non presenta solo una fase omogenea ma invece si possono vedere due fasi distinte.
+Ad elevati ingrandimenti si può vedere che il campione non presenta solo una fase omogenea ma invece si possono vedere due fasi ben distinte (visibile nell'immagine sotto), che per comodità chiameremo quella più scura **fase scura** e analogamente la fase più chiara la chiameremo **fase chiara**.
+
+```{r img1, echo=FALSE}
+img_fase1
+img_fase2
+```
+
 
 Qundi per poter identificare queste fasi distinte possiamo analizzare la composizione, come è stato fatto per la composizione generale, così da poter notare delle differenze all'interno della composizione chimica in modo da poter indentificare le singole fasi.
 
@@ -187,37 +191,32 @@ mean_fase <- fase_chiara %>%
   select(Element, mean_fase_chiara, mean_fase_scura)
 
 mean_fase %>% 
-  kable(booktabs=T, caption="Composizione delle fasi") %>%
+  kable(booktabs=T, caption="Composizione media delle fasi") %>%
   kable_styling(latex_options = c("striped", "HOLD_position"), position = "center")
 ```
 
+Trasformando questa tabella in un grafico a colonne si possono vedere più chiaramente le differenze in quantità fra le due fasi
+
 ```{r echo=FALSE}
-p1 <- fase_chiara %>% 
-  group_by(Element) %>% 
-  select(Element, Mean) %>% 
-  unique() %>% 
-  ggplot(aes(x=Element, y=Mean)) + 
-  geom_col() + 
-  labs(x="Elemnto", y="Media", title="Media fase chiara")
-
-p2 <- fase_scura %>% 
-  group_by(Element) %>% 
-  select(Element, Mean) %>% 
-  unique() %>% 
-  ggplot(aes(x=Element, y=Mean)) + 
-  geom_col() + 
-  labs(x="Elemnto", y="Media", title="Media fase scura")
-
-p1 + p2
-```
-
-```{r}
 mean_fase %>% 
-  ggplot(aes(x=Element)) + 
-  geom_col(aes(y=mean_fase_chiara), position="dodge") 
+  pivot_longer(!Element) %>% 
+  ggplot(aes(x=Element, y=value, fill=name)) +
+  geom_col(position="dodge") + 
+  labs(y="Value", fill="Fase") + 
+  scale_fill_viridis_d()
+
 ```
 
 # Conclusioni
+
+Sulla base dei risultati ottenuti, è possibile trarre le seguenti considerazioni:
+
+- La presenza di oltre il 13% di Cromo nel campione suggerisce una composizione caratteristica degli acciai inossidabili.
+- Si osserva una variazione significativa nella distribuzione degli elementi chimici tra le due fasi rilevate.
+
+Questi elementi ci permettono di concludere che il campione analizzato appartiene alla categoria degli acciai inossidabili, e più precisamente a quella degli acciai Duplex, caratterizzati dalla presenza di due fasi distinte: Austenite e Ferrite. 
+La microstruttura tipica degli acciai Duplex, che combina queste due fasi, conferisce al materiale le sue peculiari proprietà meccaniche e di resistenza alla corrosione.
+
 
 \newpage
 
